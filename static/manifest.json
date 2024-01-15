@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Template",
+  "description": "Typescript Extension Template",
+  "version": "0.0.1",
+  "action": {
+    "default_popup": "./popup/index.html"
+  },
+  "background": {
+    "service_worker": "./service-worker/main.js"
+  },
+  "content_scripts": [
+    {
+      "js": ["./contents/main.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

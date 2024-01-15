@@ -1,0 +1,16 @@
+{
+  "name": "webpack-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf ./dist && cp -r ./static ./dist && tsc && echo 'build success!'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chrome-types": "^0.1.250",
+    "typescript": "^5.3.3"
+  }
+}
