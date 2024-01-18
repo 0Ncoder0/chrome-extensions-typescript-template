@@ -2,6 +2,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
+    "lib": ["DOM", "ES2016"],
     "types": ["chrome-types"]
   }
 }
