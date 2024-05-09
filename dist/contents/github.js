@@ -34,25 +34,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    if (message.event === "save")
-        save(message);
-    return true;
-});
-function save(_a) {
-    var _b = _a.data, task = _b[0], title = _b[1];
+(function () {
+    var _a, _b, _c;
     return __awaiter(this, void 0, void 0, function () {
-        var maps;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0: return [4 /*yield*/, chrome.storage.sync.get("maps").then(function (res) { return res.maps || []; })];
+        var task, bug, key, maps, body, title;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
+                case 0:
+                    console.log("github.js script running...");
+                    _d.label = 1;
                 case 1:
-                    maps = _c.sent();
-                    maps.push([task, title]);
-                    maps.filter(function (e, i, arr) { return arr.findIndex(function (a) { return a[0] === e[0]; }) === i; }).splice(10, maps.length - 10);
-                    chrome.storage.sync.set({ maps: maps });
+                    if (!true) return [3 /*break*/, 3];
+                    if (document.querySelector("#pull_request_body"))
+                        return [3 /*break*/, 3];
+                    return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 500); })];
+                case 2:
+                    _d.sent();
+                    return [3 /*break*/, 1];
+                case 3:
+                    task = (_a = location.href.match(/task-(\d+)/)) === null || _a === void 0 ? void 0 : _a[1];
+                    bug = (_b = location.href.match(/bug-(\d+)/)) === null || _b === void 0 ? void 0 : _b[1];
+                    if (!task && !bug)
+                        return [2 /*return*/];
+                    key = task ? "task-".concat(task) : "bug-".concat(bug);
+                    return [4 /*yield*/, chrome.storage.sync.get("maps").then(function (res) { return res.maps || []; })];
+                case 4:
+                    maps = _d.sent();
+                    body = document.querySelector("#pull_request_body");
+                    body.value = task ? "https://zentao.qbitnetwork.com/zentao/task-view-".concat(task, ".html") : "https://zentao.qbitnetwork.com/zentao/bug-view-".concat(bug, ".html");
+                    title = document.querySelector("#pull_request_title");
+                    title.value = ((_c = maps.find(function (e) { return e[0] === key; })) === null || _c === void 0 ? void 0 : _c[1]) || title.value;
                     return [2 /*return*/];
             }
         });
     });
-}
+})();

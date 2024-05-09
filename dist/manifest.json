@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Template",
-  "description": "Typescript Extension Template",
+  "name": "ZentaoGithubRelate",
+  "description": "ZentaoGithubRelate",
   "version": "0.0.1",
+  "permissions": ["storage", "activeTab", "scripting"],
   "action": {
     "default_popup": "./popup/index.html"
   },
@@ -11,8 +12,16 @@
   },
   "content_scripts": [
     {
-      "js": ["./contents/main.js"],
-      "matches": ["<all_urls>"]
+      "js": ["./contents/zentao-task.js"],
+      "matches": ["https://zentao.qbitnetwork.com/*"]
+    },
+    {
+      "js": ["./contents/zentao-bug.js"],
+      "matches": ["https://zentao.qbitnetwork.com/*"]
+    },
+    {
+      "js": ["./contents/github.js"],
+      "matches": ["https://github.com/PalmDrive/*/compare/*...*"]
     }
   ]
 }
