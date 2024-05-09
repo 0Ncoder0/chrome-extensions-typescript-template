@@ -34,6 +34,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 (function () {
     return __awaiter(this, void 0, void 0, function () {
         var main, url, isSameUrl, isTargeUrl, sleep, doIt;
@@ -79,18 +88,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                             releaseBtn.addEventListener("click", onClick);
                         };
                         var copyBranchName = function () { return __awaiter(_this, void 0, void 0, function () {
-                            var task, date, branch;
+                            var name, task, date, branch, maps;
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0:
+                                        name = chrome.storage.sync.get("name").then(function (res) { return res.name || "name"; });
                                         task = "task-" + location.href.match(/task-view-(\d+)/)[1];
                                         date = timeFormat(new Date());
-                                        branch = "yeli/".concat(date, "/").concat(task, "/");
+                                        branch = "".concat(name, "/").concat(date, "/").concat(task, "/");
                                         return [4 /*yield*/, navigator.clipboard.writeText(branch)];
                                     case 1:
                                         _a.sent();
                                         toast("分支名已复制到粘贴板: " + branch);
-                                        chrome.runtime.sendMessage({ event: "save", data: [task, document.title] });
+                                        return [4 /*yield*/, chrome.storage.sync.get("maps").then(function (res) { return res.maps || []; })];
+                                    case 2:
+                                        maps = _a.sent();
+                                        maps = __spreadArray(__spreadArray([], maps, true), [[task, document.title]], false).filter(function (e, i, arr) { return arr.findIndex(function (a) { return a[0] === e[0]; }) === i; }).splice(10, maps.length - 10);
+                                        chrome.storage.sync.set({ maps: maps });
                                         return [2 /*return*/];
                                 }
                             });

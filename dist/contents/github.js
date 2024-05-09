@@ -35,36 +35,59 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 (function () {
-    var _a, _b, _c;
     return __awaiter(this, void 0, void 0, function () {
-        var task, bug, key, maps, body, title;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var main, url, isSameUrl, isTargeUrl, sleep, doIt;
+        var _this = this;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
                     console.log("github.js script running...");
-                    _d.label = 1;
+                    main = function () { return __awaiter(_this, void 0, void 0, function () {
+                        var task, bug, key, maps, body, title;
+                        var _a, _b, _c;
+                        return __generator(this, function (_d) {
+                            switch (_d.label) {
+                                case 0:
+                                    if (!true) return [3 /*break*/, 2];
+                                    if (document.querySelector("#pull_request_body"))
+                                        return [3 /*break*/, 2];
+                                    return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 500); })];
+                                case 1:
+                                    _d.sent();
+                                    return [3 /*break*/, 0];
+                                case 2:
+                                    task = (_a = location.href.match(/task-(\d+)/)) === null || _a === void 0 ? void 0 : _a[1];
+                                    bug = (_b = location.href.match(/bug-(\d+)/)) === null || _b === void 0 ? void 0 : _b[1];
+                                    if (!task && !bug)
+                                        return [2 /*return*/];
+                                    key = task ? "task-".concat(task) : "bug-".concat(bug);
+                                    return [4 /*yield*/, chrome.storage.sync.get("maps").then(function (res) { return res.maps || []; })];
+                                case 3:
+                                    maps = _d.sent();
+                                    body = document.querySelector("#pull_request_body");
+                                    body.value = task ? "https://zentao.qbitnetwork.com/zentao/task-view-".concat(task, ".html") : "https://zentao.qbitnetwork.com/zentao/bug-view-".concat(bug, ".html");
+                                    title = document.querySelector("#pull_request_title");
+                                    title.value = ((_c = maps.find(function (e) { return e[0] === key; })) === null || _c === void 0 ? void 0 : _c[1]) || title.value;
+                                    return [2 /*return*/];
+                            }
+                        });
+                    }); };
+                    url = "";
+                    isSameUrl = function () { return url === location.href; };
+                    isTargeUrl = function () { return location.href.includes("compare"); };
+                    sleep = function (ms) { return new Promise(function (resolve) { return setTimeout(resolve, ms); }); };
+                    _a.label = 1;
                 case 1:
                     if (!true) return [3 /*break*/, 3];
-                    if (document.querySelector("#pull_request_body"))
-                        return [3 /*break*/, 3];
-                    return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 500); })];
+                    doIt = !isSameUrl() && isTargeUrl();
+                    url = location.href;
+                    if (doIt)
+                        main();
+                    return [4 /*yield*/, sleep(500)];
                 case 2:
-                    _d.sent();
+                    _a.sent();
                     return [3 /*break*/, 1];
-                case 3:
-                    task = (_a = location.href.match(/task-(\d+)/)) === null || _a === void 0 ? void 0 : _a[1];
-                    bug = (_b = location.href.match(/bug-(\d+)/)) === null || _b === void 0 ? void 0 : _b[1];
-                    if (!task && !bug)
-                        return [2 /*return*/];
-                    key = task ? "task-".concat(task) : "bug-".concat(bug);
-                    return [4 /*yield*/, chrome.storage.sync.get("maps").then(function (res) { return res.maps || []; })];
-                case 4:
-                    maps = _d.sent();
-                    body = document.querySelector("#pull_request_body");
-                    body.value = task ? "https://zentao.qbitnetwork.com/zentao/task-view-".concat(task, ".html") : "https://zentao.qbitnetwork.com/zentao/bug-view-".concat(bug, ".html");
-                    title = document.querySelector("#pull_request_title");
-                    title.value = ((_c = maps.find(function (e) { return e[0] === key; })) === null || _c === void 0 ? void 0 : _c[1]) || title.value;
-                    return [2 /*return*/];
+                case 3: return [2 /*return*/];
             }
         });
     });

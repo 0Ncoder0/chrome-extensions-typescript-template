@@ -55,9 +55,10 @@
     };
 
     const copyBranchName = async () => {
+      const name = chrome.storage.sync.get("name").then((res) => res.name || "name");
       const task = "task-" + location.href.match(/task-view-(\d+)/)![1];
       const date = timeFormat(new Date());
-      const branch = `yeli/${date}/${task}/`;
+      const branch = `${name}/${date}/${task}/`;
       await navigator.clipboard.writeText(branch);
       toast("分支名已复制到粘贴板: " + branch);
 

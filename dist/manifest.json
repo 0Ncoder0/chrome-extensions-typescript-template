@@ -21,7 +21,7 @@
     },
     {
       "js": ["./contents/github.js"],
-      "matches": ["https://github.com/PalmDrive/*/compare/*...*"]
+      "matches": ["https://github.com/*"]
     }
   ]
 }
